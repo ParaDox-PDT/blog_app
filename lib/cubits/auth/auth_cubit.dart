@@ -35,11 +35,25 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> confirmCode({required String code})async{
+  Future<void> confirmCode({required String code}) async {
     emit(AuthLoadingState());
     UniversalData universalData = await authRepository.confirmCode(code: code);
     if (universalData.error.isEmpty) {
       emit(AuthConfirmCodeSuccessState());
+    } else {
+      emit(
+        AuthErrorState(errorText: universalData.error),
+      );
+    }
+  }
+
+  Future<void> loginUser(
+      {required String gmail, required String password}) async {
+    emit(AuthLoadingState());
+    UniversalData universalData =
+        await authRepository.loginUser(gmail: gmail, password: password);
+    if (universalData.error.isEmpty) {
+      emit(AuthLoggedState());
     } else {
       emit(
         AuthErrorState(errorText: universalData.error),

@@ -8,6 +8,7 @@ import 'package:flutter_defualt_project/presentation/widgets/global_button.dart'
 
 import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -81,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 470.h,
                   child: PageView(
                     controller: pageController,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics:const NeverScrollableScrollPhysics(),
                     children: [
                       EmailPasswordInput(
                         gmailController: gmailController,
@@ -101,24 +102,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                Center(
-                  child: GlobalButton(
-                    text: currentPage == 0
-                        ? "SEND CONFIRM CODE"
-                        : currentPage == 1
-                        ? "CONFIRM CODE"
-                        : "SIGN UP",
-                    onTap: () {
-                      if (currentPage == 0) {
-                        context.read<AuthCubit>().sendCodeToGmail(
-                            gmail: gmailController.text,
-                            password: passwordController.text);
-                      } else if (currentPage == 1) {
-                        context
-                            .read<AuthCubit>()
-                            .confirmCode(code: codeController.text);
-                      } else if (currentPage == 2) {}
-                    },
+                Visibility(
+                  visible: state is! AuthLoadingState,
+                  child: Center(
+                    child: GlobalButton(
+                      text: currentPage == 0
+                          ? "SEND CONFIRM CODE"
+                          : currentPage == 1
+                          ? "CONFIRM CODE"
+                          : "SIGN UP",
+                      onTap: () {
+                        if (currentPage == 0) {
+                          context.read<AuthCubit>().sendCodeToGmail(
+                              gmail: gmailController.text,
+                              password: passwordController.text);
+                        } else if (currentPage == 1) {
+                          context
+                              .read<AuthCubit>()
+                              .confirmCode(code: codeController.text);
+                        } else if (currentPage == 2) {
+                          // context.read<AuthCubit>().
+                        }
+                      },
+                    ),
                   ),
                 )
               ],
@@ -127,6 +133,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       },
       listener: (context, state) {
+        if(state is AuthErrorState){
+          showErrorMessage(message: state.errorText, context: context);
+        }
         if (state is AuthSendCodeSuccessState) {
           currentPage = 1;
           gmailController.clear();

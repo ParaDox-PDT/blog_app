@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
 import 'package:flutter_defualt_project/presentation/widgets/global_textfield.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
+import 'package:flutter_defualt_project/utils/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../../../utils/colors.dart';
@@ -28,7 +30,7 @@ class _EmailPasswordInputState extends State<EmailPasswordInput> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit,AuthState>(builder: (context, state) {
       if(state is AuthLoadingState){
-        return const Center(child: CircularProgressIndicator(),);
+        return  Center(child: Lottie.asset(AppImages.loading2),);
       }
       return  Column(
         children: [

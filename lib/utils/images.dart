@@ -4,4 +4,6 @@ class AppImages{
   static const String blog="assets/images/blog.json";
   static const String blog2="assets/images/blog_2.json";
   static const String edit="assets/images/edit.json";
+  static const String loading="assets/images/loading.json";
+  static const String loading2="assets/images/loading2.json";
 }

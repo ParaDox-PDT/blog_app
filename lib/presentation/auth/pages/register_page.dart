@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../cubits/auth/auth_cubit.dart';
+import '../../../utils/images.dart';
 import '../../widgets/global_textfield.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -20,7 +22,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit,AuthState>(builder: (context, state) {
       if(state is AuthLoadingState){
-        return const Center(child: CircularProgressIndicator(),);
+        return Center(child: Lottie.asset(AppImages.loading2),);
       }
       return  Column(
         children: [
