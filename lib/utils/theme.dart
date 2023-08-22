@@ -5,15 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'colors.dart';
 
 class AppTheme {
-  static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: AppColors.black,
+  static ThemeData lightTheme = ThemeData(
+    scaffoldBackgroundColor: AppColors.white,
     appBarTheme: const AppBarTheme(
       elevation: 0,
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.white,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.black,
+        statusBarColor:Colors.transparent,
         statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
       ),
     ),
     textTheme: TextTheme(
@@ -22,82 +22,82 @@ class AppTheme {
           color: AppColors.textColor,
           fontSize: 57.sp,
           fontWeight: FontWeight.w800,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       displayMedium: TextStyle(
           color: AppColors.textColor,
           fontSize: 45.sp,
           fontWeight: FontWeight.w700,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       displaySmall: TextStyle(
           color: AppColors.textColor,
           fontSize: 36.sp,
           fontWeight: FontWeight.w600,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       //headline
       headlineLarge: TextStyle(
           color: AppColors.textColor,
           fontSize: 32.sp,
           fontWeight: FontWeight.w700,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       headlineMedium: TextStyle(
           color: AppColors.textColor,
           fontSize: 28.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       headlineSmall: TextStyle(
           color: AppColors.textColor,
           fontSize: 24.sp,
           fontWeight: FontWeight.w400,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       //title
       titleLarge: TextStyle(
           color: AppColors.textColor,
           fontSize: 22.sp,
           fontWeight: FontWeight.w700,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       titleMedium: TextStyle(
           color: AppColors.textColor,
           fontSize: 16.sp,
           fontWeight: FontWeight.w600,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       titleSmall: TextStyle(
           color: AppColors.textColor,
           fontSize: 14.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       //label
       labelLarge: TextStyle(
           color: AppColors.textColor,
           fontSize: 14.sp,
           fontWeight: FontWeight.w600,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       labelMedium: TextStyle(
           color: AppColors.textColor,
           fontSize: 12.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       labelSmall: TextStyle(
           color: AppColors.textColor,
           fontSize: 11.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
       //body
-      bodySmall: const TextStyle(
+      bodySmall:  TextStyle(
           color: AppColors.passiveTextColor,
           fontSize: 16,
-          fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontWeight: FontWeight.w400,
+          fontFamily: "Comfortaa"),
       bodyMedium: TextStyle(
           color: AppColors.textColor,
           fontSize: 14.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontWeight: FontWeight.w400,
+          fontFamily: "Comfortaa"),
       bodyLarge: TextStyle(
           color: AppColors.textColor,
           fontSize: 12.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: "Lato"),
+          fontFamily: "Comfortaa"),
     ),
   );
-  static ThemeData lightTheme = ThemeData();
+  static ThemeData darkTheme = ThemeData();
 }
