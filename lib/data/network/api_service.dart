@@ -76,7 +76,6 @@ class ApiService {
     try {
       response =
           await _dio.post("register", data: {userModel.getFormatData(xFile)});
-
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: response.data["message"]);
       }
@@ -99,7 +98,7 @@ class ApiService {
       response = await _dio
           .post("/login", data: {"gmail": gmail, "password": password});
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: UserModel.fromJson(response.data["data"]));
+        return UniversalData(data: response.data["data"]);
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {

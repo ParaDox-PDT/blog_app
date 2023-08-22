@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/data/models/universal_data.dart';
 import 'package:flutter_defualt_project/data/repositories/auth_repository.dart';
 import 'package:meta/meta.dart';
@@ -53,6 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
     UniversalData universalData =
         await authRepository.loginUser(gmail: gmail, password: password);
     if (universalData.error.isEmpty) {
+      StorageRepository.putString("token", universalData.data);
       emit(AuthLoggedState());
     } else {
       emit(

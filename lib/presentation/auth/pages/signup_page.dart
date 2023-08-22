@@ -12,6 +12,9 @@ import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../data/local/storage_repository/storage_repository.dart';
+import '../../app_routes.dart';
+
 class SignUpScreen extends StatefulWidget {
   SignUpScreen(
       {super.key, required this.onChanged, required this.parentContext});
@@ -153,6 +156,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             duration: const Duration(seconds: 1),
             curve: Curves.linear,
           );
+        }
+        if (state is AuthLoggedState) {
+          StorageRepository.putBool("isStart", true);
+          Navigator.pushReplacementNamed(context, RouteNames.tabBox);
         }
       },
     );

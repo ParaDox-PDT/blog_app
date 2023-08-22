@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
+import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/presentation/widgets/global_button.dart';
 import 'package:flutter_defualt_project/presentation/widgets/global_textfield.dart';
@@ -131,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
           showErrorMessage(message: state.errorText, context: context);
         }
         if (state is AuthLoggedState) {
+          StorageRepository.putBool("isStart", true);
           Navigator.pushReplacementNamed(context, RouteNames.tabBox);
         }
       },
