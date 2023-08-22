@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/presentation/widgets/global_button.dart';
 import 'package:flutter_defualt_project/utils/constants.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
@@ -24,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               115.ph,
-              Lottie.asset(AppImages.blog2,height: 230.h),
+              Lottie.asset(AppImages.blog2, height: 230.h),
               70.ph,
               Text(
                 "Hey! Welcome",
@@ -40,9 +41,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
               30.ph,
-              GlobalButton(text: "SIGN IN", onTap: (){}),
+              GlobalButton(
+                  text: "SIGN IN",
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, RouteNames.auth,
+                        arguments: true);
+                  }),
               20.ph,
-              GlobalButton(text: "CREATE AN ACCOUNT", onTap: (){})
+              // GlobalButton(
+              //   text: "CREATE AN ACCOUNT",
+              //   onTap: () {
+              //     Navigator.pushReplacementNamed(context, RouteNames.auth,
+              //         arguments: false);
+              //   },
+              // )
             ],
           ),
         ),
