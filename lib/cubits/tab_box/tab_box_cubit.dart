@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_defualt_project/presentation/home/home_screen.dart';
 import 'package:flutter_defualt_project/presentation/profile/profile_screen.dart';
-import 'package:meta/meta.dart';
 
 import '../../data/models/article/article_model.dart';
 import '../../data/models/universal_data.dart';
@@ -11,13 +10,13 @@ import '../../data/repositories/auth_repository.dart';
 part 'tab_box_state.dart';
 
 class TabBoxCubit extends Cubit<TabBoxState> {
-  TabBoxCubit({required this.authRepository}) : super(TabBoxHomeState());
+  TabBoxCubit({required this.authRepository}) : super(TabBoxHomeState()){getArticles();}
 
   final AuthRepository authRepository;
 
   List<Widget> screens = [
-    HomeScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const ProfileScreen(),
   ];
   int currentScreenIndex=0;
 

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/tab_box/tab_box_cubit.dart';
+import 'package:flutter_defualt_project/presentation/home/widgets/floating_button.dart';
 import 'package:flutter_defualt_project/presentation/home/widgets/list_item.dart';
 import 'package:flutter_defualt_project/utils/icons.dart';
 import 'package:flutter_defualt_project/utils/images.dart';
 import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 
 import '../../data/models/article/article_model.dart';
 
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocConsumer<TabBoxCubit, TabBoxState>(
         builder: (context, state) {
           if (state is TabBoxLoadingState) {
-            return Center(child: Lottie.asset(AppImages.loading2));
+            return Center(child: Lottie.asset(AppImages.loading3));
           }
           return SizedBox(
             width: double.infinity,
@@ -64,11 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
-      floatingActionButton: Container(
-        width: 40.w,
-        height: 40.h,
-        color: Colors.black,
-      ),
+      floatingActionButton:const FloatingButton(),
     );
   }
 }
