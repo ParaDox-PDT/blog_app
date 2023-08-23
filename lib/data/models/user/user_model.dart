@@ -47,7 +47,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       password: json["password"] as String? ?? "",
-      email: json["email"] as String? ?? "",
+      email: json["gmail"] as String? ?? "",
       username: json["username"] as String? ?? "",
       id: json["id"] as int? ?? 0,
       avatar: json["avatar"] as String? ?? "",
@@ -62,26 +62,25 @@ class UserModel {
     return {
       "username": username,
       "password": password,
-      "email": email,
+      "gmail": email,
       "avatar": avatar,
       "contact": contact,
       "gender": gender,
       "profession": profession,
-      "role": role
     };
   }
 
-  Future<FormData> getFormatData(XFile file) async {
+  Future<FormData> getFormatData() async {
+    XFile file = XFile(avatar);
     String fileName = file.path.split('/').last;
     return FormData.fromMap({
       "username": username,
       "password": password,
-      "email": email,
+      "gmail": email,
       "avatar": await MultipartFile.fromFile(file.path, filename: fileName),
       "contact": contact,
       "gender": gender,
       "profession": profession,
-      "role": role
     });
   }
 }
