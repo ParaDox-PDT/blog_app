@@ -17,7 +17,7 @@ import '../../../data/local/storage_repository/storage_repository.dart';
 import '../../app_routes.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen(
+  const SignUpScreen(
       {super.key, required this.onChanged, required this.parentContext});
 
   final VoidCallback onChanged;

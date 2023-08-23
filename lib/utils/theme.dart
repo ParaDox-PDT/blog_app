@@ -53,7 +53,7 @@ class AppTheme {
       titleLarge: TextStyle(
           color: AppColors.textColor,
           fontSize: 22.sp,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
           fontFamily: "Comfortaa"),
       titleMedium: TextStyle(
           color: AppColors.textColor,

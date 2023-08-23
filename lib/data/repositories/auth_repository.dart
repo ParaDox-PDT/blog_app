@@ -33,6 +33,10 @@ class AuthRepository {
   Future<void> setToken({required String token}) async =>
       StorageRepository.putString("token", token);
 
+  Future<UniversalData> getArticles()async{
+    return apiService.getArticles();
+  }
+
   Future<bool?> deleteToken() async => StorageRepository.deleteString("token");
 
   bool isStart() => StorageRepository.getBool("isStart");

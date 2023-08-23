@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_defualt_project/data/models/article/article_model.dart';
 import 'package:flutter_defualt_project/data/models/user/user_model.dart';
-
 import '../../utils/constants.dart';
 import '../models/universal_data.dart';
 
@@ -68,13 +68,12 @@ class ApiService {
     }
   }
 
-  Future<UniversalData> registerUser(
-      {required UserModel userModel}) async {
+  Future<UniversalData> registerUser({required UserModel userModel}) async {
     Response response;
     _dio.options.headers = {"Accept": "multipart/form-data"};
     try {
       response =
-          await _dio.post("register", data:await userModel.getFormatData());
+          await _dio.post("register", data: await userModel.getFormatData());
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: response.data["data"]);
       }
@@ -117,6 +116,29 @@ class ApiService {
       response = await _dio.post("/password", data: {"checkPass": code});
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: response.data["message"]);
+      }
+      return UniversalData(error: "Other Error");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return UniversalData(error: e.response!.data["message"]);
+      } else {
+        return UniversalData(error: e.message!);
+      }
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+  Future<UniversalData> getArticles() async {
+    Response response;
+    try {
+      response = await _dio.get("/articles");
+      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        return UniversalData(
+            data: (response.data["data"] as List?)
+                    ?.map((e) => ArticleModel.fromJson(e))
+                    .toList() ??
+                []);
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
