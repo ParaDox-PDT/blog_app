@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_defualt_project/data/models/article/article_model.dart';
+
+import 'package:flutter_defualt_project/data/models/websites/websites_model.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -9,9 +10,9 @@ import '../../../utils/colors.dart';
 import '../../../utils/constants.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({super.key, required this.articleModel});
-  
-  final ArticleModel articleModel;
+  const ListItem({super.key, required this.websiteModel});
+
+  final WebsiteModel websiteModel;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,8 @@ class ListItem extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl:
-                    "$baseUrlForImage${articleModel.avatar}",
+                    baseUrl + websiteModel.image.substring(1),
+                    errorWidget: (context, url, error) => Icon(Icons.language),
                     width: 40.w,
                     height: 40.w,
                   ),
@@ -50,7 +52,7 @@ class ListItem extends StatelessWidget {
                       SizedBox(
                         width: 250.w,
                         child: Text(
-                          articleModel.title,
+                          websiteModel.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -59,17 +61,22 @@ class ListItem extends StatelessWidget {
                               .copyWith(letterSpacing: 0.15.sp),
                         ),
                       ),
-                      Text(articleModel.username,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium)
+                      SizedBox(
+                        width: 250.w,
+                        child: Text(websiteModel.link,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium),
+                      )
                     ],
                   )
                 ],
               ),
               30.ph,
               Text(
-                articleModel.description,
+                websiteModel.author,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)

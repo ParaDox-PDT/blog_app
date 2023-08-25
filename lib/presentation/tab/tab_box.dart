@@ -26,12 +26,12 @@ class _TabBoxScreenState extends State<TabBoxScreen> {
             if (state is TabBoxHomeState) {
               context.read<TabBoxCubit>().getArticles();
               setState(() {
-                activeIndex = 0;
+                activeIndex=0;
               });
             }
             if (state is TabBoxProfileState) {
               setState(() {
-                activeIndex = 1;
+                activeIndex=1;
               });
             }
           },
@@ -39,7 +39,7 @@ class _TabBoxScreenState extends State<TabBoxScreen> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: activeIndex,
           onTap: (value) {
-            activeIndex == 0
+            value == 1
                 ? context.read<TabBoxCubit>().selectProfileState()
                 : context.read<TabBoxCubit>().selectHomeState();
             setState(() {

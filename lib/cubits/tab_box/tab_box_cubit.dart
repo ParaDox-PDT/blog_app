@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_defualt_project/presentation/home/home_screen.dart';
 import 'package:flutter_defualt_project/presentation/profile/profile_screen.dart';
+import 'package:flutter_defualt_project/presentation/websites/website_screen.dart';
 
 import '../../data/models/article/article_model.dart';
 import '../../data/models/universal_data.dart';
@@ -15,7 +16,7 @@ class TabBoxCubit extends Cubit<TabBoxState> {
   final AuthRepository authRepository;
 
   List<Widget> screens = [
-    const HomeScreen(),
+    const WebsitesScreen(),
     const ProfileScreen(),
   ];
   int currentScreenIndex=0;

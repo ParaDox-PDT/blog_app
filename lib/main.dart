@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
+import 'package:flutter_defualt_project/cubits/profile/profile_cubit.dart';
 import 'package:flutter_defualt_project/cubits/tab_box/tab_box_cubit.dart';
+import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
 import 'package:flutter_defualt_project/data/network/api_service.dart';
 import 'package:flutter_defualt_project/data/repositories/auth_repository.dart';
+import 'package:flutter_defualt_project/data/repositories/website_repository.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'data/local/storage_repository/storage_repository.dart';
+import 'data/repositories/profile_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +32,12 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (context) => AuthRepository(apiService: apiService),
+        ),
+        RepositoryProvider(
+          create: (context) => ProfileRepository(apiService: apiService),
+        ),
+        RepositoryProvider(
+          create: (context) => WebsiteRepository(apiService: apiService),
         )
       ],
       child: MultiBlocProvider(
@@ -39,7 +49,13 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => TabBoxCubit(authRepository: context.read<AuthRepository>(),)
-          )
+          ),
+          BlocProvider(
+              create: (context) => ProfileCubit(
+                  profileRepository: context.read<ProfileRepository>())),
+          BlocProvider(
+              create: (context) => WebsiteCubit(
+                  websiteRepository: context.read<WebsiteRepository>())),
         ],
         child: const MyApp(),
       ),

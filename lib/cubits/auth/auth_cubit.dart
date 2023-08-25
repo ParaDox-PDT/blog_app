@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_defualt_project/data/models/universal_data.dart';
 import 'package:flutter_defualt_project/data/models/user/user_model.dart';
