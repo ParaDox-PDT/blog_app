@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
+import 'package:flutter_defualt_project/cubits/profile/profile_cubit.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/utils/colors.dart';
+import 'package:flutter_defualt_project/utils/constants.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
+import 'package:flutter_defualt_project/utils/images.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../cubits/auth/auth_cubit.dart';
-import '../../cubits/profile/profile_cubit.dart';
-import '../../utils/constants.dart';
-import '../../utils/images.dart';
-import '../../utils/ui_utils/custom_circular.dart';
-import '../../utils/ui_utils/error_message_dialog.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

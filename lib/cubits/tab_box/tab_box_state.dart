@@ -8,6 +8,11 @@ class TabBoxHomeState extends TabBoxState{
   List<Object?> get props =>  [];
 }
 
+class TabBoxArticleState extends TabBoxState{
+  @override
+  List<Object?> get props =>  [];
+}
+
 class TabBoxProfileState extends TabBoxState{
   @override
   List<Object?> get props =>  [];

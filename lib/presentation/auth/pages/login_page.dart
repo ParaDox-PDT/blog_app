@@ -27,15 +27,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   bool isVisible = true;
+  bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       builder: (context, state) {
-        if(state is AuthLoadingState){
-          return Center(child: Lottie.asset(AppImages.loading2),);
-        }
-        return ListView(
+        return isLoading? Center(child: Lottie.asset(AppImages.loading2),): ListView(
           physics: const BouncingScrollPhysics(),
           children: [
             Padding(
@@ -127,6 +125,11 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
       listener: (context, state) {
+        if(state is AuthLoadingState){
+          setState(() {
+            isLoading=true;
+          });
+        }
         if (state is AuthErrorState) {
           showErrorMessage(message: state.errorText, context: context);
         }

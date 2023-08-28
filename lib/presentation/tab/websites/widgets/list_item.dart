@@ -1,17 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_defualt_project/data/models/article/article_model.dart';
+
+import 'package:flutter_defualt_project/data/models/websites/websites_model.dart';
+import 'package:flutter_defualt_project/utils/colors.dart';
+import 'package:flutter_defualt_project/utils/constants.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
-
 class ListItem extends StatelessWidget {
-  const ListItem({super.key, required this.articleModel});
-  
-  final ArticleModel articleModel;
+  const ListItem({super.key, required this.websiteModel, required this.onTap});
+
+  final WebsiteModel websiteModel;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class ListItem extends StatelessWidget {
       padding:
       EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
       child: ZoomTapAnimation(
+        onTap: onTap,
         child: Container(
           width: 344.w,
           height: 176.h,
@@ -39,40 +41,51 @@ class ListItem extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl:
-                    "$baseUrlForImage${articleModel.avatar}",
-                    width: 40.w,
+                    baseUrl + websiteModel.image.substring(1),
+                    errorWidget: (context, url, error) => const Icon(Icons.language),
+                    width: 60.w,
                     height: 40.w,
+                    fit: BoxFit.cover,
                   ),
                   16.pw,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 250.w,
+                        width: 230.w,
                         child: Text(
-                          articleModel.title,
+                          websiteModel.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
+                          style: Theme
+                              .of(context)
                               .textTheme
                               .titleLarge!
                               .copyWith(letterSpacing: 0.15.sp),
                         ),
                       ),
-                      Text(articleModel.username,
-                          style: Theme.of(context)
+                      SizedBox(
+                          width: 230.w,
+                          child: Text(websiteModel.link,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme
+                              .of(context)
                               .textTheme
                               .bodyMedium)
+                      ),
+
                     ],
                   )
                 ],
               ),
               30.ph,
               Text(
-                articleModel.description,
+                websiteModel.author,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .titleSmall!
                     .copyWith(

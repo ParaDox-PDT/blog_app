@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_defualt_project/presentation/websites/widgets/list_item.dart';
-import 'package:flutter_defualt_project/utils/colors.dart';
+import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
+import 'package:flutter_defualt_project/data/models/status/form_status.dart';
+import 'package:flutter_defualt_project/data/models/websites/websites_model.dart';
+import 'package:flutter_defualt_project/presentation/app_routes.dart';
+import 'package:flutter_defualt_project/presentation/tab/websites/widgets/list_item.dart';
 import 'package:flutter_defualt_project/utils/images.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../cubits/website/website_cubit.dart';
-import '../../data/models/status/form_status.dart';
-import '../../data/models/websites/websites_model.dart';
-import '../../utils/ui_utils/error_message_dialog.dart';
-import '../app_routes.dart';
-import '../home/widgets/floating_button.dart';
+import '../articles/widgets/floating_button.dart';
 
 class WebsitesScreen extends StatefulWidget {
   const WebsitesScreen({super.key});
@@ -28,15 +27,18 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
 
   _init() async {
     Future.microtask(
-            () => BlocProvider.of<WebsiteCubit>(context).getWebsites(context));
+        () => BlocProvider.of<WebsiteCubit>(context).getWebsites(context));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Sites screen",style: Theme.of(context).textTheme.titleLarge,),
-        actions: [
+        title: Text(
+          "Sites screen",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        actions: const [
           // IconButton(
           //   onPressed: () {
           //     Navigator.pushNamed(context, RouteNames.addWebsite);
@@ -47,7 +49,7 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
       ),
       body: BlocConsumer<WebsiteCubit, WebsiteState>(
         builder: (context, state) {
-          if(state.statusText==""){
+          if (state.statusText == "") {
             return Center(child: Lottie.asset(AppImages.loading2));
           }
           return SizedBox(
@@ -56,7 +58,13 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
               children: [
                 ...List.generate(state.websites.length, (index) {
                   WebsiteModel websiteModel = state.websites[index];
-                  return ListItem(websiteModel: websiteModel);
+                  return ListItem(
+                    websiteModel: websiteModel,
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteNames.websiteDetail,
+                          arguments: websiteModel);
+                    },
+                  );
                 })
               ],
             ),
@@ -74,7 +82,7 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
           }
         },
       ),
-      floatingActionButton:const FloatingButton(),
+      floatingActionButton: const FloatingButton(),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../utils/colors.dart';
 
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});

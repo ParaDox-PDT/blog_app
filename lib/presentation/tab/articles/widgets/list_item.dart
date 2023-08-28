@@ -1,25 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_defualt_project/data/models/websites/websites_model.dart';
+import 'package:flutter_defualt_project/data/models/article/article_model.dart';
+import 'package:flutter_defualt_project/utils/colors.dart';
+import 'package:flutter_defualt_project/utils/constants.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({super.key, required this.websiteModel});
-
-  final WebsiteModel websiteModel;
-
+  const ListItem({super.key, required this.articleModel, required this.onTap});
+  
+  final ArticleModel articleModel;
+ final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
       EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
       child: ZoomTapAnimation(
+        onTap: onTap,
         child: Container(
           width: 344.w,
           height: 176.h,
@@ -40,8 +40,7 @@ class ListItem extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl:
-                    baseUrl + websiteModel.image.substring(1),
-                    errorWidget: (context, url, error) => Icon(Icons.language),
+                    "$baseUrlForImage${articleModel.avatar}",
                     width: 40.w,
                     height: 40.w,
                   ),
@@ -52,7 +51,7 @@ class ListItem extends StatelessWidget {
                       SizedBox(
                         width: 250.w,
                         child: Text(
-                          websiteModel.name,
+                          articleModel.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -61,22 +60,17 @@ class ListItem extends StatelessWidget {
                               .copyWith(letterSpacing: 0.15.sp),
                         ),
                       ),
-                      SizedBox(
-                        width: 250.w,
-                        child: Text(websiteModel.link,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium),
-                      )
+                      Text(articleModel.username,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium)
                     ],
                   )
                 ],
               ),
               30.ph,
               Text(
-                websiteModel.author,
+                articleModel.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
+import 'package:flutter_defualt_project/data/models/websites/websites_fields_keys.dart';
+import 'package:flutter_defualt_project/utils/colors.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../cubits/website/website_cubit.dart';
-import '../../../data/models/websites/websites_fields_keys.dart';
-import '../../../utils/colors.dart';
-import '../../../utils/ui_utils/error_message_dialog.dart';
 
 
 class AddWebsiteScreen extends StatefulWidget {

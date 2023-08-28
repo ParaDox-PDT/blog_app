@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_defualt_project/cubits/articles/article_add_cubit/articles_cubit.dart';
+import 'package:flutter_defualt_project/cubits/articles/article_get_cubit/article_get_cubit.dart';
 import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
 import 'package:flutter_defualt_project/cubits/profile/profile_cubit.dart';
 import 'package:flutter_defualt_project/cubits/tab_box/tab_box_cubit.dart';
 import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
 import 'package:flutter_defualt_project/data/network/api_service.dart';
+import 'package:flutter_defualt_project/data/repositories/articles_repository.dart';
 import 'package:flutter_defualt_project/data/repositories/auth_repository.dart';
 import 'package:flutter_defualt_project/data/repositories/website_repository.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
@@ -38,6 +41,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => WebsiteRepository(apiService: apiService),
+        ),
+        RepositoryProvider(
+          create: (context) => ArticlesRepository(apiService: apiService),
         )
       ],
       child: MultiBlocProvider(
@@ -48,14 +54,21 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => TabBoxCubit(authRepository: context.read<AuthRepository>(),)
-          ),
+              create: (context) => TabBoxCubit(
+                    authRepository: context.read<AuthRepository>(),
+                  )),
           BlocProvider(
               create: (context) => ProfileCubit(
                   profileRepository: context.read<ProfileRepository>())),
           BlocProvider(
               create: (context) => WebsiteCubit(
                   websiteRepository: context.read<WebsiteRepository>())),
+          BlocProvider(
+              create: (context) =>
+                  ArticlesAddCubit(context.read<ArticlesRepository>())),
+          BlocProvider(
+              create: (context) =>
+                  ArticleGetCubit(context.read<ArticlesRepository>())),
         ],
         child: const MyApp(),
       ),

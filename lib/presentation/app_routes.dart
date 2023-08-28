@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/data/models/article/article_model.dart';
+import 'package:flutter_defualt_project/data/models/websites/websites_model.dart';
 import 'package:flutter_defualt_project/presentation/auth/auth_screen.dart';
 import 'package:flutter_defualt_project/presentation/on_boarding/on_boarding_screen.dart';
 import 'package:flutter_defualt_project/presentation/splash/splash_screen.dart';
+import 'package:flutter_defualt_project/presentation/tab/articles/subscreens/article_detail_screen.dart';
 import 'package:flutter_defualt_project/presentation/tab/tab_box.dart';
-import 'package:flutter_defualt_project/presentation/websites/subscreen/add_website_screen.dart';
+import 'package:flutter_defualt_project/presentation/tab/websites/subscreen/add_website_screen.dart';
+import 'package:flutter_defualt_project/presentation/tab/websites/subscreen/website_detail_screen.dart';
 
 class RouteNames {
   static const String onBoarding = "/on_boarding";
@@ -11,6 +15,8 @@ class RouteNames {
   static const String auth = "/auth";
   static const String splashScreen = "/";
   static const String addWebsite = "/add_website";
+  static const String websiteDetail = "/website_detail";
+  static const String articleDetail = "/article_detail";
 }
 
 class AppRoutes {
@@ -20,6 +26,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const SplashScreen(),
         );
+      case RouteNames.articleDetail:
+        return MaterialPageRoute(builder: (context) => ArticleDetailScreen(articleModel: settings.arguments as ArticleModel));
+      case RouteNames.websiteDetail:
+        return MaterialPageRoute(builder: (context) => WebsiteDetailScreen(websiteModel: settings.arguments as WebsiteModel));
       case RouteNames.addWebsite:
         return MaterialPageRoute(builder: (context) => AddWebsiteScreen());
       case RouteNames.auth:
