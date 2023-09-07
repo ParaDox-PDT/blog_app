@@ -170,6 +170,7 @@ class ApiService {
         data: await articleModel.getFormData(),
       );
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        print("QO'SHILDI");
         return UniversalData(data: response.data["data"]);
       }
       return UniversalData(error: "Other Error");

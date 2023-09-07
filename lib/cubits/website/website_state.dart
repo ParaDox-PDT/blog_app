@@ -43,8 +43,6 @@ class WebsiteState extends Equatable {
     if (websiteModel.image.isEmpty) return false;
     if (websiteModel.name.isEmpty) return false;
     if (websiteModel.link.isEmpty) return false;
-    if (websiteModel.author.isEmpty) return false;
-    if (websiteModel.contact.isEmpty) return false;
     if (websiteModel.hashtag.isEmpty) return false;
     return true;
   }

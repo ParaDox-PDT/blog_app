@@ -39,17 +39,11 @@ class ArticleState extends Equatable {
     articleDetail,
   ];
 
-  bool canAddWebsite() {
+  bool canAddArticle() {
     if (articleModel.image.isEmpty) return false;
     if (articleModel.hashtag.isEmpty) return false;
-    if (articleModel.username.isEmpty) return false;
     if (articleModel.description.isEmpty) return false;
     if (articleModel.title.isEmpty) return false;
-    if (articleModel.avatar.isEmpty) return false;
-    if (articleModel.views.isEmpty) return false;
-    if (articleModel.likes.isEmpty) return false;
-    if (articleModel.addDate.isEmpty) return false;
-    if (articleModel.profession.isEmpty) return false;
     return true;
   }
 }

@@ -82,7 +82,11 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
           }
         },
       ),
-      floatingActionButton: const FloatingButton(),
+      floatingActionButton: FloatingButton(
+        onTap: () {
+          Navigator.pushNamed(context, RouteNames.addWebsite);
+        },
+      ),
     );
   }
 }

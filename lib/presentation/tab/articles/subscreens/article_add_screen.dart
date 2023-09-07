@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
-import 'package:flutter_defualt_project/data/models/websites/websites_fields_keys.dart';
+import 'package:flutter_defualt_project/cubits/articles/article_add_cubit/articles_cubit.dart';
+import 'package:flutter_defualt_project/data/models/article/article_model_fields.dart';
 import 'package:flutter_defualt_project/presentation/widgets/global_post_button.dart';
 import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
@@ -12,26 +12,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-
-
-class AddWebsiteScreen extends StatefulWidget {
-  const AddWebsiteScreen({super.key});
+class ArticleAddScreen extends StatefulWidget {
+  const ArticleAddScreen({super.key});
 
   @override
-  State<AddWebsiteScreen> createState() => _AddWebsiteScreenState();
+  State<ArticleAddScreen> createState() => _ArticleAddScreenState();
 }
 
-class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
-
+class _ArticleAddScreenState extends State<ArticleAddScreen> {
+  TextEditingController topicController = TextEditingController();
   ImagePicker picker = ImagePicker();
-
-  late WebsiteCubit bloc ;
-
-  @override
-  void initState() {
-    bloc = BlocProvider.of<WebsiteCubit>(context);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +29,28 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              BlocProvider.of<WebsiteCubit>(context).updateWebsiteField(
-                  fieldKey: WebsiteFieldKeys.image, value: "");
-              BlocProvider.of<WebsiteCubit>(context).updateWebsiteField(
-                  fieldKey: WebsiteFieldKeys.name, value: "");
-              BlocProvider.of<WebsiteCubit>(context).updateWebsiteField(
-                  fieldKey: WebsiteFieldKeys.link, value: "");
-              BlocProvider.of<WebsiteCubit>(context).updateWebsiteField(
-                  fieldKey: WebsiteFieldKeys.hashtag, value: "");
+              BlocProvider.of<ArticlesAddCubit>(context).updateArticleField(
+                  articleModelFields: ArticleModelFields.image, value: "");
+              BlocProvider.of<ArticlesAddCubit>(context).updateArticleField(
+                  articleModelFields: ArticleModelFields.title, value: "");
+              BlocProvider.of<ArticlesAddCubit>(context).updateArticleField(
+                  articleModelFields: ArticleModelFields.description,
+                  value: "");
+              BlocProvider.of<ArticlesAddCubit>(context).updateArticleField(
+                  articleModelFields: ArticleModelFields.hashtag, value: "");
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back)),
         backgroundColor: AppColors.c_005FEE,
         title: Text(
-          "Add a Website",
+          "Post a Article",
           style: Theme.of(context)
               .textTheme
               .titleLarge!
               .copyWith(color: AppColors.white),
         ),
       ),
-      body: BlocConsumer<WebsiteCubit, WebsiteState>(
+      body: BlocConsumer<ArticlesAddCubit, ArticleState>(
         builder: (context, state) {
           return ListView(
             children: [
@@ -78,15 +69,72 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {
-                          context.read<WebsiteCubit>().updateWebsiteField(
-                              fieldKey: WebsiteFieldKeys.name,
+                          context.read<ArticlesAddCubit>().updateArticleField(
+                              articleModelFields: ArticleModelFields.title,
                               value: value);
                         },
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: AppColors.textColor,
                             fontWeight: FontWeight.w500),
                         decoration: InputDecoration(
-                            hintText: "Website's name",
+                            suffixIcon: SizedBox(
+                              width: 20.sp,
+                            ),
+                            hintText: "Topic",
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: AppColors.textColor),
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: AppColors.black.withOpacity(0.5))),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: AppColors.black.withOpacity(0.5))),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: AppColors.black.withOpacity(0.5))),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: AppColors.black.withOpacity(0.5))),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: AppColors.black.withOpacity(0.5)))),
+                      ),
+                    ),
+                    18.ph,
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.r),
+                        color: AppColors.white,
+                      ),
+                      width: 326.w,
+                      height: 368.h,
+                      child: TextField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        maxLines: 100,
+                        onChanged: (value) {
+                          context.read<ArticlesAddCubit>().updateArticleField(
+                              articleModelFields:
+                                  ArticleModelFields.description,
+                              value: value);
+                        },
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            hintText: "Article",
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -130,61 +178,8 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {
-                          context.read<WebsiteCubit>().updateWebsiteField(
-                              fieldKey:
-                              WebsiteFieldKeys.link,
-                              value: value);
-                        },
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: AppColors.textColor,
-                            fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            hintText: "Link",
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(color: AppColors.textColor),
-                            disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black.withOpacity(0.5))),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black.withOpacity(0.5))),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black.withOpacity(0.5))),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black.withOpacity(0.5))),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black.withOpacity(0.5)))),
-                      ),
-                    ),
-                    18.ph,
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.r),
-                        color: AppColors.white,
-                      ),
-                      width: 326.w,
-                      height: 54.h,
-                      child: TextField(
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {
-                          context.read<WebsiteCubit>().updateWebsiteField(
-                              fieldKey: WebsiteFieldKeys.hashtag,
+                          context.read<ArticlesAddCubit>().updateArticleField(
+                              articleModelFields: ArticleModelFields.hashtag,
                               value: value);
                         },
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -240,16 +235,16 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                                 width: 1, color: AppColors.textColor),
                             color: Colors.white),
                         child: Center(
-                          child: state.websiteModel.image.isEmpty
+                          child: state.articleModel.image.isEmpty
                               ? const Text(
-                            "Image Not Selected",
-                            style: TextStyle(color: Colors.black),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )
+                                  "Image Not Selected",
+                                  style: TextStyle(color: Colors.black),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
                               : Image.file(
-                            File(state.websiteModel.image),
-                          ),
+                                  File(state.articleModel.image),
+                                ),
                         ),
                       ),
                     ),
@@ -257,18 +252,22 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                     GlobalPostButton(
                         text: "Post",
                         onTap: () {
-                          if (state.canAddWebsite()) {
+                          context.read<ArticlesAddCubit>().updateArticleField(
+                              articleModelFields: ArticleModelFields.addDate,
+                              value: DateTime.now().toString());
+                          if (state.canAddArticle()) {
                             context
-                                .read<WebsiteCubit>()
-                                .createWebsite();
-                            context.read<WebsiteCubit>().updateWebsiteField(
-                                fieldKey: WebsiteFieldKeys.image, value: "");
-                            context.read<WebsiteCubit>().updateWebsiteField(
-                                fieldKey: WebsiteFieldKeys.name, value: "");
-                            context.read<WebsiteCubit>().updateWebsiteField(
-                                fieldKey: WebsiteFieldKeys.link, value: "");
-                            context.read<WebsiteCubit>().updateWebsiteField(
-                                fieldKey: WebsiteFieldKeys.hashtag, value: "");
+                                .read<ArticlesAddCubit>()
+                                .addArticle(context);
+                            context.read<ArticlesAddCubit>().updateArticleField(
+                                articleModelFields: ArticleModelFields.image, value: "");
+                            context.read<ArticlesAddCubit>().updateArticleField(
+                                articleModelFields: ArticleModelFields.title, value: "");
+                            context.read<ArticlesAddCubit>().updateArticleField(
+                                articleModelFields: ArticleModelFields.description,
+                                value: "");
+                            context.read<ArticlesAddCubit>().updateArticleField(
+                                articleModelFields: ArticleModelFields.hashtag, value: "");
                             Navigator.pop(context);
                           } else {
                             showErrorMessage(
@@ -285,7 +284,6 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
       ),
     );
   }
-
 
   void showBottomSheetDialog() {
     showModalBottomSheet(
@@ -336,8 +334,8 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
 
     if (xFile != null) {
       setState(() {
-        context.read<WebsiteCubit>().updateWebsiteField(
-            fieldKey: WebsiteFieldKeys.image, value: xFile.path);
+        context.read<ArticlesAddCubit>().updateArticleField(
+            articleModelFields: ArticleModelFields.image, value: xFile.path);
       });
     }
   }
@@ -350,8 +348,8 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
     );
     if (xFile != null) {
       setState(() {
-        context.read<WebsiteCubit>().updateWebsiteField(
-            fieldKey: WebsiteFieldKeys.image, value: xFile.path);
+        context.read<ArticlesAddCubit>().updateArticleField(
+            articleModelFields: ArticleModelFields.image, value: xFile.path);
       });
     }
   }

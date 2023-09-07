@@ -7,7 +7,6 @@ import '../../data/models/universal_data.dart';
 import '../../data/models/websites/websites_fields_keys.dart';
 import '../../data/models/websites/websites_model.dart';
 import '../../data/repositories/website_repository.dart';
-import '../../utils/ui_utils/loading_dialog.dart';
 
 part 'website_state.dart';
 
@@ -18,9 +17,9 @@ class WebsiteCubit extends Cubit<WebsiteState> {
       websiteModel: WebsiteModel(
         name: "",
         image: "",
-        author: "",
+        author: "ParaDox",
         hashtag: "",
-        contact: "",
+        contact: "990762259",
         likes: "",
         link: "",
       ),
@@ -144,6 +143,6 @@ class WebsiteCubit extends Cubit<WebsiteState> {
 
     debugPrint("WEBSITE: ${currentWebsite.toString()}");
 
-    emit(state.copyWith(websiteModel: currentWebsite));
+    emit(state.copyWith(websiteModel: currentWebsite,status: FormStatus.pure));
   }
 }

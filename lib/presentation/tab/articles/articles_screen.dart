@@ -82,7 +82,9 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           }
         },
       ),
-      floatingActionButton: const FloatingButton(),
+      floatingActionButton: FloatingButton(onTap: () {
+        Navigator.pushNamed(context, RouteNames.articleAdd);
+      }),
     );
   }
 }

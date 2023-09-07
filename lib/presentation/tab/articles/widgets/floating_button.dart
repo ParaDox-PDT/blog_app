@@ -6,11 +6,13 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 
 class FloatingButton extends StatelessWidget {
-  const FloatingButton({super.key});
+  const FloatingButton({super.key, required this.onTap});
+ final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
+      onTap: onTap,
       child: Container(
           width: 128.w,
           height: 48.h,
