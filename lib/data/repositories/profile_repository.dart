@@ -1,10 +1,11 @@
+import 'package:flutter_defualt_project/data/network/secure_api_service.dart';
+import 'package:flutter_defualt_project/service/service_locator.dart';
+
 import '../models/universal_data.dart';
-import '../network/api_service.dart';
 
 class ProfileRepository {
-  final ApiService apiService;
 
-  ProfileRepository({required this.apiService});
+  ProfileRepository();
 
-  Future<UniversalData> getUserData() async => apiService.getProfileData();
+  Future<UniversalData> getUserData() async => getIt.get<SecureApiService>().getProfileData();
 }

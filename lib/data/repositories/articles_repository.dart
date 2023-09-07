@@ -1,13 +1,13 @@
 import 'package:flutter_defualt_project/data/models/article/article_model.dart';
 import 'package:flutter_defualt_project/data/models/universal_data.dart';
-import 'package:flutter_defualt_project/data/network/api_service.dart';
+import 'package:flutter_defualt_project/data/network/open_api_service.dart';
+import 'package:flutter_defualt_project/service/service_locator.dart';
 
 class ArticlesRepository{
-  final ApiService apiService;
-  ArticlesRepository({required this.apiService});
+  ArticlesRepository( );
 
-  Future<UniversalData> getArticles() async => apiService.getArticles();
+  Future<UniversalData> getArticles() async => getIt.get<OpenApiService>().getArticles();
 
   Future<UniversalData> createArticle(ArticleModel newArticle) async =>
-      apiService.createArticle(articleModel: newArticle);
+      getIt.get<OpenApiService>().createArticle(articleModel: newArticle);
 }

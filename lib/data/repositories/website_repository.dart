@@ -1,17 +1,18 @@
+import 'package:flutter_defualt_project/data/network/open_api_service.dart';
+import 'package:flutter_defualt_project/data/network/secure_api_service.dart';
+import 'package:flutter_defualt_project/service/service_locator.dart';
+
 import '../models/universal_data.dart';
 import '../models/websites/websites_model.dart';
-import '../network/api_service.dart';
 
 class WebsiteRepository {
-  final ApiService apiService;
+  WebsiteRepository();
 
-  WebsiteRepository({required this.apiService});
-
-  Future<UniversalData> getWebsites() async => apiService.getWebsites();
+  Future<UniversalData> getWebsites() async => getIt.get<OpenApiService>().getWebsites();
 
   Future<UniversalData> getWebsiteById(int websiteId) async =>
-      apiService.getWebsiteById(websiteId);
+      getIt.get<OpenApiService>().getWebsiteById(websiteId);
 
   Future<UniversalData> createWebsite(WebsiteModel newWebsite) async =>
-      apiService.createWebsite(websiteModel: newWebsite);
+      getIt.get<SecureApiService>().createWebsite(websiteModel: newWebsite);
 }

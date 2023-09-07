@@ -6,11 +6,11 @@ import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
 import 'package:flutter_defualt_project/cubits/profile/profile_cubit.dart';
 import 'package:flutter_defualt_project/cubits/tab_box/tab_box_cubit.dart';
 import 'package:flutter_defualt_project/cubits/website/website_cubit.dart';
-import 'package:flutter_defualt_project/data/network/api_service.dart';
 import 'package:flutter_defualt_project/data/repositories/articles_repository.dart';
 import 'package:flutter_defualt_project/data/repositories/auth_repository.dart';
 import 'package:flutter_defualt_project/data/repositories/website_repository.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
+import 'package:flutter_defualt_project/service/service_locator.dart';
 import 'package:flutter_defualt_project/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,30 +20,29 @@ import 'data/repositories/profile_repository.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageRepository.getInstance();
+  getItSetup();
 
-  runApp(App(apiService: ApiService()));
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key, required this.apiService});
-
-  final ApiService apiService;
+  const App({super.key,});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (context) => AuthRepository(apiService: apiService),
+          create: (context) => AuthRepository(),
         ),
         RepositoryProvider(
-          create: (context) => ProfileRepository(apiService: apiService),
+          create: (context) => ProfileRepository(),
         ),
         RepositoryProvider(
-          create: (context) => WebsiteRepository(apiService: apiService),
+          create: (context) => WebsiteRepository(),
         ),
         RepositoryProvider(
-          create: (context) => ArticlesRepository(apiService: apiService),
+          create: (context) => ArticlesRepository(),
         )
       ],
       child: MultiBlocProvider(
@@ -65,10 +64,10 @@ class App extends StatelessWidget {
                   websiteRepository: context.read<WebsiteRepository>())),
           BlocProvider(
               create: (context) =>
-                  ArticlesAddCubit(context.read<ArticlesRepository>())),
+                  ArticlesAddCubit(articlesRepository:  context.read<ArticlesRepository>())),
           BlocProvider(
               create: (context) =>
-                  ArticleGetCubit(context.read<ArticlesRepository>())),
+                  ArticleGetCubit(articlesRepository:  context.read<ArticlesRepository>())),
         ],
         child: const MyApp(),
       ),

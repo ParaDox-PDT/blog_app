@@ -12,7 +12,7 @@ import '../../../utils/ui_utils/loading_dialog.dart';
 part 'article_get_state.dart';
 
 class ArticleGetCubit extends Cubit<ArticleFetchState> {
-  ArticleGetCubit(this.articlesRepository) : super(const ArticleFetchState(articles: []));
+  ArticleGetCubit({required this.articlesRepository}) : super(const ArticleFetchState(articles: []));
 
   final ArticlesRepository articlesRepository;
 

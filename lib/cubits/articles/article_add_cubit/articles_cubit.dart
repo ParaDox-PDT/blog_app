@@ -13,7 +13,7 @@ import '../../../utils/ui_utils/loading_dialog.dart';
 part 'articles_state.dart';
 
 class ArticlesAddCubit extends Cubit<ArticleState> {
-  ArticlesAddCubit(this.articlesRepository)
+  ArticlesAddCubit({required this.articlesRepository})
       : super(ArticleState(
             articleModel: ArticleModel(
                 avatar: "",
