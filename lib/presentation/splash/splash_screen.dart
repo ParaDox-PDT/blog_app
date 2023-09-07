@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/auth/auth_cubit.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
-import 'package:flutter_defualt_project/service/service_locator.dart';
 import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,8 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // BlocProvider.of<AuthCubit>(context).checkLoggedAndOnBoardingState();
-    getIt.get<AuthCubit>().checkLoggedAndOnBoardingState();
+    BlocProvider.of<AuthCubit>(context).checkLoggedAndOnBoardingState();
     super.initState();
   }
 

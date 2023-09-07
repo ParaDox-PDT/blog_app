@@ -61,23 +61,26 @@ class _WebsiteDetailScreenState extends State<WebsiteDetailScreen> {
                       .bodySmall!
                       .copyWith(fontSize: 18.sp, color: AppColors.textColor),
                 ),
-                Linkify(
-                  onOpen: (link) async {
-                    if (!await launchUrl(Uri.parse(link.url))) {
-                      throw Exception('Could not launch ${link.url}');
-                    }
-                  },
-                  text: widget.websiteModel.link,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 18.sp, color: Colors.red),
-                  linkStyle:Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 18.sp, color: AppColors.c_005FEE),
+                SizedBox(
+                  width: 288.w,
+                  child: Linkify(
+                    onOpen: (link) async {
+                      if (!await launchUrl(Uri.parse(link.url))) {
+                        throw Exception('Could not launch ${link.url}');
+                      }
+                    },
+                    text: widget.websiteModel.link,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18.sp, color: Colors.red),
+                    linkStyle:Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18.sp, color: AppColors.c_005FEE),
+                  ),
                 ),
 
               ],
